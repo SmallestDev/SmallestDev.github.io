@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="UNU Studios: games, tools and apps by smallestDev.">
+<meta name="description" content="UNU Studios: games, tools and apps by smallestDev. Open for commissions.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>UNU Studios</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -353,6 +353,32 @@ h2 { font-family: var(--display); font-weight: 900; font-size: clamp(40px, 6vw, 
 .loading .bar > i { animation: load 3.5s ease-in-out infinite; }
 @keyframes load { 0% { width: 4%; } 70% { width: 78%; } 100% { width: 82%; } }
 
+/* ---------- commissions ---------- */
+.pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.hire-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.svc { border-radius: var(--r-lg); padding: 24px; display: flex; flex-direction: column; gap: 12px; transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+.svc:hover { transform: translateY(-6px); }
+.svc .ic { width: 54px; height: 54px; border-radius: 18px; display: grid; place-items: center; background: var(--ink); color: var(--ink-fg); transition: transform .6s cubic-bezier(.3,1.6,.5,1); }
+.svc:hover .ic { transform: rotate(-10deg) scale(1.1); }
+.svc .ic svg { width: 26px; height: 26px; }
+.svc h3 { margin: 0; font-family: var(--display); font-size: 22px; font-weight: 900; line-height: 1.15; }
+.svc p { margin: 0; color: var(--fg2); font-weight: 600; }
+.svc .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
+.svc .tags span { font-family: var(--mono); font-size: 11px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--stroke); background: var(--glass); color: var(--fg2); }
+.svc.any { background: var(--ink); color: var(--ink-fg); border-color: transparent; }
+.svc.any p { color: var(--ink-fg); opacity: .75; }
+.svc.any .ic { background: var(--ink-fg); color: var(--ink); }
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+.step { border-radius: var(--r-lg); padding: 20px 22px; display: flex; flex-direction: column; gap: 6px; }
+.step i { font-style: normal; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-family: var(--mono); font-size: 13px; border: 1.5px solid var(--fg); margin-bottom: 6px; }
+.step b { font-size: 17px; font-weight: 900; }
+.step span { color: var(--fg2); font-weight: 600; font-size: 14px; }
+.hire-cta { margin-top: 14px; border-radius: var(--r-xl); padding: 26px 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.hire-cta h3 { margin: 0; font-family: var(--display); font-size: clamp(22px, 3vw, 30px); font-weight: 900; line-height: 1.15; }
+.hire-cta p { margin: 4px 0 0; color: var(--fg2); font-weight: 600; }
+@media (max-width: 960px) { .hire-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 720px) { .hire-grid, .steps { grid-template-columns: minmax(0, 1fr); } }
+
 /* ---------- playground ---------- */
 .play { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 18px; align-items: start; }
 .board-wrap { position: relative; border-radius: var(--r-xl); padding: 18px; }
@@ -528,6 +554,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   <div class="nav-links" id="navLinks">
     <span class="nav-ind" id="navInd"></span>
     <a href="#work" data-sec="work">Work</a>
+    <a href="#hire" data-sec="hire">Hire</a>
     <a href="#play" data-sec="play">Play</a>
     <a href="#stack" data-sec="stack">Stack</a>
     <a href="#now" data-sec="now">Now</a>
@@ -545,7 +572,10 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
 
 <header class="hero wrap" id="top">
   <div class="hero-copy">
-    <div class="pill glass"><span class="live-dot"></span>Seoul · <span class="mono" id="clock">--:--:--</span> KST</div>
+    <div class="pills">
+      <a class="pill glass" href="#hire" style="text-decoration:none;color:var(--fg)"><span class="live-dot"></span>Open for commissions</a>
+      <div class="pill glass">Seoul · <span class="mono" id="clock">--:--:--</span> KST</div>
+    </div>
     <h1 class="hero-title" id="heroTitle" aria-label="UNU Studios"><span class="line">UNU</span><span class="line outline">Studios</span></h1>
     <p class="hero-sub">smallestDev builds <span class="rotator" id="rotator"><span>games</span></span><br>with code, sound and lots of small experiments.</p>
     <div class="hero-actions">
@@ -723,6 +753,70 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   </div>
 </section>
 
+<section class="section wrap" id="hire">
+  <div class="sec-head reveal">
+    <span class="eyebrow glass">Commissions</span>
+    <h2>Need something built?</h2>
+    <p>I take freelance and commission work. If it can be coded, I can probably build it. Here is what people ask for most.</p>
+  </div>
+  <div class="hire-grid">
+    <div class="svc glass reveal">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="5"/><path d="M12 7V4M9 13h.01M15 13h.01M2 12v3M22 12v3"/></svg></span>
+      <h3>Discord bots</h3>
+      <p>Custom commands, moderation, mini games, alerts and anything else your server needs.</p>
+      <div class="tags"><span>Slash commands</span><span>Automation</span><span>24/7 hosting help</span></div>
+    </div>
+    <div class="svc glass reveal">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg></span>
+      <h3>Minecraft mods &amp; plugins</h3>
+      <p>New items, blocks and mechanics, or server plugins for your own rules and minigames.</p>
+      <div class="tags"><span>Java</span><span>Mods</span><span>Server plugins</span></div>
+    </div>
+    <div class="svc glass reveal">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="3"/><path d="M8 21h8M12 17v4M8 10l2 2-2 2M13 14h3"/></svg></span>
+      <h3>Desktop tools &amp; automation</h3>
+      <p>Python apps and scripts that save you clicks: macros, file tools, overlays and PC control.</p>
+      <div class="tags"><span>Python</span><span>Windows</span><span>Scripts</span></div>
+    </div>
+    <div class="svc glass reveal">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="11" rx="5.5"/><path d="M7 10.5v4M5 12.5h4M15.5 11.5h.01M18 13.5h.01"/></svg></span>
+      <h3>Games &amp; prototypes</h3>
+      <p>Game mechanics, systems and playable prototypes in Unity or Unreal.</p>
+      <div class="tags"><span>Unity</span><span>Unreal</span><span>C# / C++</span></div>
+    </div>
+    <div class="svc glass reveal">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3.5"/><path d="M11 18h2"/></svg></span>
+      <h3>Android apps</h3>
+      <p>Phone apps in Kotlin or Java, including apps that talk to your PC or a server.</p>
+      <div class="tags"><span>Kotlin</span><span>Jetpack Compose</span><span>Firebase</span></div>
+    </div>
+    <div class="svc glass reveal">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+      <h3>AI &amp; voice features</h3>
+      <p>Chatbots, voice assistants, speech recognition and text-to-speech, wired into your app.</p>
+      <div class="tags"><span>OpenAI</span><span>Claude</span><span>Whisper</span><span>TTS</span></div>
+    </div>
+    <div class="svc any reveal" style="grid-column:1 / -1">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+      <h3>Something else?</h3>
+      <p>Websites, APIs, browser extensions, data scrapers, small fixes to existing code. Ask anyway. If it is code, I will probably take it on.</p>
+    </div>
+  </div>
+  <div class="steps">
+    <div class="step glass reveal"><i>1</i><b>Tell me the idea</b><span>Message me on Discord or by email with what you need.</span></div>
+    <div class="step glass reveal"><i>2</i><b>Scope and price</b><span>We agree on features, deadline and cost before I start.</span></div>
+    <div class="step glass reveal"><i>3</i><b>Build with check-ins</b><span>You see progress along the way and can steer it.</span></div>
+    <div class="step glass reveal"><i>4</i><b>Delivery</b><span>You get the working result, the code and help setting it up.</span></div>
+  </div>
+  <div class="hire-cta glass reveal">
+    <div><h3>Start with a message</h3><p>Discord is fastest. Email works too.</p></div>
+    <div class="hero-actions">
+      <button class="btn btn-solid" type="button" data-copy="unu.studios">Copy Discord · unu.studios</button>
+      <button class="btn btn-glass" type="button" data-copy="unu.studios.kr@gmail.com">Copy email</button>
+    </div>
+  </div>
+</section>
+
 <section class="section wrap" id="play">
   <div class="sec-head reveal">
     <span class="eyebrow glass">Playground</span>
@@ -802,10 +896,11 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
     <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
       <span class="eyebrow glass">Contact</span>
       <h2>Say hi.</h2>
-      <p style="margin:0;font-size:18px;color:var(--fg2);font-weight:600;max-width:36ch">Questions, playtests or collabs. Email works best, and the source lives on GitHub.</p>
+      <p style="margin:0;font-size:18px;color:var(--fg2);font-weight:600;max-width:36ch">Commissions, questions, playtests or collabs. Discord is fastest, email works too.</p>
       <div class="hero-actions"><a class="btn btn-solid" href="https://github.com/smallestDev" target="_blank" rel="noopener">github.com/smallestDev ↗</a></div>
     </div>
     <div class="mails">
+      <div class="mail"><div style="min-width:0"><span class="k">Discord</span><span class="v">unu.studios</span></div><button class="copy-btn" type="button" data-copy="unu.studios">Copy</button></div>
       <div class="mail"><div style="min-width:0"><span class="k">Studio</span><span class="v">unu.studios.kr@gmail.com</span></div><button class="copy-btn" type="button" data-copy="unu.studios.kr@gmail.com">Copy</button></div>
       <div class="mail"><div style="min-width:0"><span class="k">Labs</span><span class="v">unu.labs@gmail.com</span></div><button class="copy-btn" type="button" data-copy="unu.labs@gmail.com">Copy</button></div>
       <div class="mail"><div style="min-width:0"><span class="k">GitHub</span><span class="v">smallestDev</span></div><a class="copy-btn" style="display:grid;place-items:center;text-decoration:none" href="https://github.com/smallestDev" target="_blank" rel="noopener">Open</a></div>
@@ -815,7 +910,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
 
 <footer class="wrap">
   <span>© 2026 UNU Studios · smallestDev</span>
-  <span class="stamp glass">UNU Labs — v.02</span>
+  <span class="stamp glass">UNU Labs — v.03</span>
 </footer>
 
 <button class="top-btn glass" id="topBtn" type="button" aria-label="Back to top">
@@ -1038,7 +1133,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
     if (scrollY < innerHeight * .5) current = null;
     moveInd(current ? $('#navLinks a[data-sec="' + current + '"]') : null);
   }, { rootMargin: '-45% 0px -50% 0px' });
-  ['work', 'play', 'stack', 'now', 'contact'].forEach(function (id) { secIO.observe(document.getElementById(id)); });
+  ['work', 'hire', 'play', 'stack', 'now', 'contact'].forEach(function (id) { secIO.observe(document.getElementById(id)); });
 
   /* ---------- filters ---------- */
   var fInd = $('#fInd'), fBtns = $$('#filters button'), cards = $$('#grid .card');
@@ -1184,6 +1279,8 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   $('#kbdHint').textContent = isMac ? '⌘K' : 'Ctrl K';
   var cmds = [
     { t: 'Go to Work', g: 'Section', run: function () { go('work'); } },
+    { t: 'Go to Commissions', g: 'Hire me', run: function () { go('hire'); } },
+    { t: 'Copy Discord username', g: 'unu.studios', run: function () { copy('unu.studios'); } },
     { t: 'Go to Playground', g: 'Section', run: function () { go('play'); } },
     { t: 'Go to Stack', g: 'Section', run: function () { go('stack'); } },
     { t: 'Go to Now', g: 'Section', run: function () { go('now'); } },
