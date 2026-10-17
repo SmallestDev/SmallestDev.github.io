@@ -77,22 +77,28 @@ button { font: inherit; color: inherit; }
 .mono { font-family: var(--mono); }
 
 /* ---------- glass ---------- */
+/* Translucent fill only; a live backdrop blur is kept for the few surfaces that sit over moving content
+   (nav, dialogs, back-to-top), because re-blurring dozens of cards every frame is what made scrolling stutter. */
 .glass {
   background: var(--glass);
   border: 1px solid var(--stroke);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
-  backdrop-filter: blur(20px) saturate(140%);
   box-shadow: var(--shadow), inset 0 1px 0 var(--hi);
+}
+.nav.glass, .top-btn.glass, .battle.show, .modal, .palette {
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
 }
 
 /* ---------- background ---------- */
 .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg); transition: background-color .5s ease; }
 .blob {
   position: absolute; width: 56vmax; height: 56vmax; border-radius: 50%;
-  filter: blur(90px); opacity: .95; will-change: transform;
+  opacity: .95; will-change: transform;
   transform: translate3d(calc(var(--mx, 0) * var(--d, 30px)), calc(var(--my, 0) * var(--d, 30px)), 0);
+  transition: transform 1.2s cubic-bezier(.2,.8,.2,1);
 }
-.blob > i { display: block; width: 100%; height: 100%; border-radius: 50%; background: var(--c); animation: drift var(--t, 26s) ease-in-out infinite alternate; }
+/* soft edge drawn by the gradient itself — no 90px blur filter to recompute while it drifts */
+.blob > i { display: block; width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle at 50% 50%, var(--c) 0%, var(--c) 22%, transparent 70%); will-change: transform; animation: drift var(--t, 26s) ease-in-out infinite alternate; }
 .b1 { top: -22vmax; left: -14vmax; --c: var(--blob1); --t: 28s; --d: 40px; }
 .b2 { top: 18vmax; right: -24vmax; --c: var(--blob2); --t: 34s; --d: -50px; }
 .b3 { bottom: -30vmax; left: 18vmax; --c: var(--blob3); --t: 30s; --d: 30px; }
@@ -102,7 +108,7 @@ button { font: inherit; color: inherit; }
   100% { transform: translate(-6vmax, 10vmax) scale(.92); }
 }
 .grain {
-  position: absolute; inset: -50%; opacity: .07; pointer-events: none;
+  position: absolute; inset: 0; opacity: .07; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -138,7 +144,7 @@ kbd { font-family: var(--mono); font-size: 11px; padding: 2px 7px; border-radius
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: translateY(0) scale(.97); }
 .btn-solid { background: var(--ink); color: var(--ink-fg); border-color: transparent; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
-.btn-glass { background: var(--glass); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: inset 0 1px 0 var(--hi); }
+.btn-glass { background: var(--glass); box-shadow: inset 0 1px 0 var(--hi); }
 .btn .arr { transition: transform .25s; }
 .btn:hover .arr { transform: translateX(4px); }
 .chip { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; font-size: 12px; font-weight: 800; letter-spacing: .02em; background: var(--ink); color: var(--ink-fg); }
@@ -175,7 +181,7 @@ kbd { font-family: var(--mono); font-size: 11px; padding: 2px 7px; border-radius
 .ring.r2 { inset: 22% 20%; animation-duration: 40s; animation-direction: reverse; }
 .ring.r2::before { width: 8px; height: 8px; top: -4px; background: var(--fg3); }
 @keyframes spin { to { transform: rotate(360deg); } }
-.fc { position: absolute; border-radius: var(--r-lg); padding: 16px; transform: translate3d(calc(var(--mx,0) * var(--p)), calc(var(--my,0) * var(--p) + var(--sy, 0px)), 0); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.fc { position: absolute; border-radius: var(--r-lg); padding: 16px; will-change: transform; transform: translate3d(calc(var(--mx,0) * var(--p)), calc(var(--my,0) * var(--p) + var(--sy, 0px)), 0); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
 .fc > .in { animation: bob var(--bt, 6s) ease-in-out infinite; animation-delay: var(--bd, 0s); }
 @keyframes bob { 50% { transform: translateY(-12px); } }
 .fc-label { font-family: var(--mono); font-size: 11px; color: var(--fg3); text-transform: uppercase; letter-spacing: .08em; display: flex; justify-content: space-between; gap: 8px; }
@@ -287,7 +293,7 @@ h2.pend .wi { transform: translateY(115%) rotate(4deg); }
 .card.wide .card-vis { flex: 1.25; height: auto; min-height: 320px; }
 .card.wide .card-body { flex: 1; justify-content: center; padding: 34px; }
 .card.hide { opacity: 0; transform: scale(.94) translateY(16px); }
-.card .spot { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(420px circle at var(--px, 50%) var(--py, 50%), var(--hi), transparent 60%); mix-blend-mode: overlay; }
+.card .spot { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(420px circle at var(--px, 50%) var(--py, 50%), var(--hi), transparent 60%); }
 .card:hover .spot { opacity: 1; }
 .card-vis { position: relative; height: 240px; margin: 10px 10px 0; border-radius: calc(var(--r-xl) - 10px); overflow: hidden; background: var(--line); border: 1px solid var(--line); }
 .card-body { padding: 22px 26px 24px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
@@ -425,7 +431,7 @@ h2.pend .wi { transform: translateY(115%) rotate(4deg); }
 @keyframes drop { from { transform: scale(1.6) translateY(-30%); opacity: 0; } }
 @keyframes winPulse { 50% { box-shadow: 0 0 0 4px var(--fg), 0 4px 10px rgba(0,0,0,.18); } }
 .cell.target::before { content: ""; position: absolute; inset: -4%; border-radius: 50%; border: 2px dashed var(--fg); animation: spin 3s linear infinite; z-index: 2; }
-.battle { position: absolute; inset: 0; display: grid; place-items: center; border-radius: var(--r-xl); background: var(--scrim); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); z-index: 5; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.battle { position: absolute; inset: 0; display: grid; place-items: center; border-radius: var(--r-xl); background: var(--scrim); z-index: 5; opacity: 0; pointer-events: none; transition: opacity .3s; }
 .battle.show { opacity: 1; pointer-events: auto; }
 .battle-card { border-radius: var(--r-lg); padding: 22px 26px; text-align: center; display: flex; flex-direction: column; gap: 14px; align-items: center; transform: scale(.9); transition: transform .4s cubic-bezier(.3,1.5,.5,1); background: var(--glass-strong); }
 .battle.show .battle-card { transform: scale(1); }
@@ -531,8 +537,10 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
 .top-btn .ringp circle { fill: none; stroke: var(--fg); stroke-width: 2.5; stroke-linecap: round; }
 
 /* ---------- reveal ---------- */
-.reveal { transition: transform 1s cubic-bezier(.2,.8,.2,1), opacity 1s ease, filter 1s ease; }
-.reveal.pending { transform: translateY(36px) scale(.98); opacity: .35; filter: blur(4px); }
+.reveal { transition: transform 1s cubic-bezier(.2,.8,.2,1), opacity 1s ease; }
+.reveal.pending { transform: translateY(36px) scale(.98); opacity: .35; }
+/* animations inside blocks that are off screen are paused (toggled from script) */
+.anim-off, .anim-off * { animation-play-state: paused !important; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 960px) {
@@ -1095,8 +1103,18 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   /* ---------- hero: pitch meter ---------- */
   var notes = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'];
   var cents = 0;
+  /* pause CSS animations in blocks that are off screen, and skip timers there */
+  var offscreen = new WeakMap();
+  if ('IntersectionObserver' in window) {
+    var pio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { offscreen.set(e.target, !e.isIntersecting); e.target.classList.toggle('anim-off', !e.isIntersecting); });
+    }, { rootMargin: '120px' });
+    $$('.hero-visual, .card-vis, .marquee, .contact, .timeline').forEach(function (el) { pio.observe(el); });
+  }
+  var heroVisual = $('#heroVisual');
+  document.addEventListener('visibilitychange', function () { $('.bg').classList.toggle('anim-off', document.hidden); });
   setInterval(function () {
-    if (RM) return;
+    if (RM || document.hidden || offscreen.get(heroVisual)) return;
     cents = Math.max(-48, Math.min(48, cents * .6 + (Math.random() - .5) * 46));
     var c = Math.round(cents);
     $('#needle').style.left = (50 + c) + '%';
