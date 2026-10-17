@@ -8,7 +8,7 @@
 <title>UNU Studios</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap">
 <style>
 /* Layout: floating glass nav over drifting grey blobs; hero split (title / floating glass cards), then long scroll of glass sections */
 :root {
@@ -153,7 +153,9 @@ kbd { font-family: var(--mono); font-size: 11px; padding: 2px 7px; border-radius
 .hero-copy { display: flex; flex-direction: column; gap: 26px; align-items: flex-start; min-width: 0; }
 .hero-title { font-family: var(--display); font-weight: 900; font-size: clamp(68px, 11vw, 150px); line-height: .88; letter-spacing: -.045em; margin: 0; }
 .hero-title .line { display: block; }
-.hero-title .ch { display: inline-block; animation: chIn .9s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i) * 45ms + 150ms); }
+.hero-title { will-change: transform, opacity; }
+.hero-title .ch { display: inline-block; }
+.ready .hero-title .ch { animation: chIn .9s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--i) * 45ms + 120ms); }
 @keyframes chIn { from { transform: translateY(45%) rotate(6deg); filter: blur(10px); opacity: .15; } }
 .hero-title .outline { color: transparent; -webkit-text-stroke: 2px var(--fg); }
 .hero-sub { font-size: clamp(19px, 2.2vw, 24px); line-height: 1.45; font-weight: 600; color: var(--fg2); margin: 0; max-width: 30ch; }
@@ -173,7 +175,7 @@ kbd { font-family: var(--mono); font-size: 11px; padding: 2px 7px; border-radius
 .ring.r2 { inset: 22% 20%; animation-duration: 40s; animation-direction: reverse; }
 .ring.r2::before { width: 8px; height: 8px; top: -4px; background: var(--fg3); }
 @keyframes spin { to { transform: rotate(360deg); } }
-.fc { position: absolute; border-radius: var(--r-lg); padding: 16px; transform: translate3d(calc(var(--mx,0) * var(--p)), calc(var(--my,0) * var(--p)), 0); transition: transform .4s cubic-bezier(.2,.8,.2,1); }
+.fc { position: absolute; border-radius: var(--r-lg); padding: 16px; transform: translate3d(calc(var(--mx,0) * var(--p)), calc(var(--my,0) * var(--p) + var(--sy, 0px)), 0); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
 .fc > .in { animation: bob var(--bt, 6s) ease-in-out infinite; animation-delay: var(--bd, 0s); }
 @keyframes bob { 50% { transform: translateY(-12px); } }
 .fc-label { font-family: var(--mono); font-size: 11px; color: var(--fg3); text-transform: uppercase; letter-spacing: .08em; display: flex; justify-content: space-between; gap: 8px; }
@@ -239,6 +241,37 @@ kbd { font-family: var(--mono); font-size: 11px; padding: 2px 7px; border-radius
 .sec-head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 34px; max-width: 720px; }
 .eyebrow { align-self: flex-start; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg2); padding: 6px 14px; border-radius: 999px; }
 h2 { font-family: var(--display); font-weight: 900; font-size: clamp(40px, 6vw, 72px); line-height: .98; letter-spacing: -.035em; margin: 0; text-wrap: balance; }
+h2 em { font-family: "Instrument Serif", Georgia, "Times New Roman", serif; font-style: italic; font-weight: 400; letter-spacing: -.01em; font-size: 1.1em; }
+h2 .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding: 0 .04em .1em; margin: 0 -.04em -.1em; }
+h2 .wi { display: inline-block; transition: transform 1.1s cubic-bezier(.2,.8,.2,1); transition-delay: calc(var(--k) * 70ms); }
+h2.pend .wi { transform: translateY(115%) rotate(4deg); }
+
+/* ---------- loader, scroll ruler, section index ---------- */
+.loader { position: fixed; inset: 0; z-index: 120; display: grid; place-items: center; background: var(--bg); clip-path: inset(0 0 0 0); transition: clip-path .9s cubic-bezier(.76,0,.24,1); }
+.loader.done { clip-path: inset(0 0 100% 0); }
+.ld-in { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.ld-mark { display: flex; align-items: center; gap: 12px; font-family: var(--display); font-weight: 900; font-size: 44px; letter-spacing: -.03em; animation: ldPop .7s cubic-bezier(.3,1.5,.5,1) both; }
+.ld-mark .logo-dot { width: 40px; height: 40px; }
+.ld-mark .logo-dot::after { inset: 9px; }
+@keyframes ldPop { from { transform: scale(.6); opacity: 0; filter: blur(8px); } }
+.ld-bar { width: 180px; height: 3px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.ld-bar i { display: block; height: 100%; width: 0; background: var(--fg); }
+.ld-pct { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); font-variant-numeric: tabular-nums; }
+
+.rail { position: fixed; z-index: 30; right: calc(env(safe-area-inset-right, 0px) + 18px); top: 50%; transform: translateY(-50%); height: 56vh; width: 46px; display: none; pointer-events: none; }
+.rail .ticks { position: absolute; top: 0; bottom: 0; right: 0; width: 10px; background: repeating-linear-gradient(to bottom, var(--fg3) 0 1px, transparent 1px 10%) right / 10px 100% no-repeat, repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px 2%) right / 5px 100% no-repeat; }
+.rail .rn { position: absolute; right: 16px; transform: translateY(-50%); font-family: var(--mono); font-size: 9px; color: var(--fg3); }
+.rail .mark { position: absolute; right: 14px; top: 0; transform: translateY(-50%); font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 999px; background: var(--ink); color: var(--ink-fg); white-space: nowrap; font-variant-numeric: tabular-nums; transition: top .25s cubic-bezier(.2,.8,.2,1); }
+.rail .mark::after { content: ""; position: absolute; right: -14px; top: 50%; width: 12px; height: 1px; background: var(--fg); }
+.side-label { position: fixed; z-index: 29; right: calc(env(safe-area-inset-right, 0px) + 74px); top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; height: 60vh; overflow: hidden; display: none; pointer-events: none; font-family: var(--display); font-weight: 900; font-size: 40px; letter-spacing: -.01em; text-transform: uppercase; color: var(--fg); opacity: .13; }
+.side-label span { display: block; transition: transform .6s cubic-bezier(.2,.8,.2,1), opacity .35s; }
+.side-label span.out { transform: translateY(-30%); opacity: 0; }
+.side-label span.pre { transform: translateY(30%); opacity: 0; transition: none; }
+.sec-index { position: fixed; z-index: 30; right: calc(env(safe-area-inset-right, 0px) + 22px); bottom: calc(env(safe-area-inset-bottom, 0px) + 92px); display: none; flex-direction: column; align-items: flex-end; gap: 1px; }
+.sec-index a { font-family: var(--display); font-weight: 900; font-size: 13px; line-height: 1.25; text-transform: uppercase; letter-spacing: .02em; text-decoration: none; color: var(--fg3); opacity: .55; transition: color .3s, opacity .3s, transform .4s cubic-bezier(.2,.8,.2,1); }
+.sec-index a:hover { opacity: 1; }
+.sec-index a.on { color: var(--fg); opacity: 1; transform: translateX(-8px); }
+@media (min-width: 1440px) { .rail, .side-label { display: block; } .sec-index { display: flex; } }
 .sec-head p { margin: 0; font-size: 18px; color: var(--fg2); font-weight: 600; max-width: 56ch; }
 
 /* ---------- filters + grid ---------- */
@@ -629,8 +662,8 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
 
 <section class="section wrap" id="work">
   <div class="sec-head reveal">
-    <span class="eyebrow glass">Selected work</span>
-    <h2>Things I've built</h2>
+    <span class="eyebrow glass">01 / Selected work</span>
+    <h2>Things I've <em>made</em></h2>
     <p>A board game with a twist, a voice assistant, AI wingmen, a karaoke coach, a music app and a phone remote for my PC. Click any card for the details.</p>
   </div>
   <div class="filters glass reveal" id="filters" role="group" aria-label="Filter projects">
@@ -712,7 +745,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
       </div>
       <div class="card-body">
         <div class="card-top"><span class="chip">App</span><span class="chip ghost">Android · PC</span><span class="ver">Oct 2026</span></div>
-        <h3>Mononote <span class="ko">모노노트</span></h3>
+        <h3>Mononote</h3>
         <p>A music app where phone and PC each run on their own but share one library.</p>
         <div class="card-foot"><span>Details</span><span class="arrow-btn">→</span></div>
       </div>
@@ -755,8 +788,8 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
 
 <section class="section wrap" id="hire">
   <div class="sec-head reveal">
-    <span class="eyebrow glass">Commissions</span>
-    <h2>Need something built?</h2>
+    <span class="eyebrow glass">02 / Commissions</span>
+    <h2>Need something <em>built</em>?</h2>
     <p>I take freelance and commission work. If it can be coded, I can probably build it. Here is what people ask for most.</p>
   </div>
   <div class="hire-grid">
@@ -819,8 +852,8 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
 
 <section class="section wrap" id="play">
   <div class="sec-head reveal">
-    <span class="eyebrow glass">Playground</span>
-    <h2>Try the Five Pieces rule</h2>
+    <span class="eyebrow glass">03 / Playground</span>
+    <h2>Try the Five Pieces <em>rule</em></h2>
     <p>Two players, one screen. Get five in a row, or land on the other player's stone and roll for the square.</p>
   </div>
   <div class="play">
@@ -860,8 +893,8 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
 
 <section class="section wrap" id="stack">
   <div class="sec-head reveal">
-    <span class="eyebrow glass">Stack</span>
-    <h2>What I build with</h2>
+    <span class="eyebrow glass">04 / Stack</span>
+    <h2>What I build <em>with</em></h2>
     <p>Different tools for different jobs, picked per project.</p>
   </div>
   <div class="stack-grid">
@@ -876,8 +909,8 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
 
 <section class="section wrap" id="now">
   <div class="sec-head reveal">
-    <span class="eyebrow glass">Now</span>
-    <h2>Recently</h2>
+    <span class="eyebrow glass">05 / Now</span>
+    <h2><em>Recently</em></h2>
     <p>What changed lately across the projects.</p>
   </div>
   <div class="timeline">
@@ -894,8 +927,8 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   <div class="contact glass reveal">
     <span class="big-dot" aria-hidden="true"></span>
     <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
-      <span class="eyebrow glass">Contact</span>
-      <h2>Say hi.</h2>
+      <span class="eyebrow glass">06 / Contact</span>
+      <h2>Say <em>hi</em>.</h2>
       <p style="margin:0;font-size:18px;color:var(--fg2);font-weight:600;max-width:36ch">Commissions, questions, playtests or collabs. Discord is fastest, email works too.</p>
       <div class="hero-actions"><a class="btn btn-solid" href="https://github.com/smallestDev" target="_blank" rel="noopener">github.com/smallestDev ↗</a></div>
     </div>
@@ -929,12 +962,58 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
 </div>
 <div class="toasts" id="toasts" aria-live="polite"></div>
 
+<div class="rail" aria-hidden="true">
+  <span class="ticks"></span>
+  <span class="rn" style="top:0">00</span><span class="rn" style="top:50%">50</span><span class="rn" style="top:100%">100</span>
+  <span class="mark" id="railMark">0%</span>
+</div>
+<div class="side-label" aria-hidden="true"><span id="sideLabel">UNU</span></div>
+<nav class="sec-index" id="secIndex" aria-label="Sections">
+  <a href="#work" data-sec="work">Work</a>
+  <a href="#hire" data-sec="hire">Hire</a>
+  <a href="#play" data-sec="play">Play</a>
+  <a href="#stack" data-sec="stack">Stack</a>
+  <a href="#now" data-sec="now">Now</a>
+  <a href="#contact" data-sec="contact">Contact</a>
+</nav>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="ld-in">
+    <div class="ld-mark"><span class="logo-dot"></span>UNU</div>
+    <div class="ld-bar"><i></i></div>
+    <span class="ld-pct" id="ldPct">000</span>
+  </div>
+</div>
+
 <script>
 (function () {
   var root = document.documentElement;
   var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, el) { return (el || document).querySelector(s); };
   var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
+
+  /* ---------- intro loader (once per visit) ---------- */
+  (function () {
+    var loader = $('#loader');
+    function ready() { root.classList.add('ready'); }
+    function finish() {
+      if (!loader || !loader.isConnected || loader.classList.contains('done')) return;
+      loader.classList.add('done'); ready();
+      setTimeout(function () { loader.remove(); }, 950);
+    }
+    var seen = false;
+    try { seen = sessionStorage.getItem('unu-intro') === '1'; sessionStorage.setItem('unu-intro', '1'); } catch (e) {}
+    if (!loader) { ready(); return; }
+    if (RM || seen) { loader.remove(); ready(); return; }
+    var bar = loader.querySelector('.ld-bar i'), pct = $('#ldPct'), t0 = performance.now(), D = 900;
+    (function step(now) {
+      var p = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - p, 3);
+      bar.style.width = (e * 100).toFixed(1) + '%';
+      pct.textContent = ('00' + Math.round(e * 100)).slice(-3);
+      if (p < 1) requestAnimationFrame(step); else setTimeout(finish, 120);
+    })(t0);
+    setTimeout(finish, 2400);
+  })();
 
   /* ---------- theme ---------- */
   var mq = window.matchMedia('(prefers-color-scheme: dark)');
@@ -1098,6 +1177,33 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
     }, { threshold: .5 }).observe(el);
   });
 
+  /* ---------- headings: words rise in from a mask ---------- */
+  $$('h2').forEach(function (h) {
+    var parts = [];
+    Array.prototype.slice.call(h.childNodes).forEach(function (n) {
+      if (n.nodeType === 3) n.textContent.split(/(\s+)/).forEach(function (t) {
+        if (!t) return;
+        parts.push(/^\s+$/.test(t) ? document.createTextNode(' ') : t);
+      });
+      else parts.push(n);
+    });
+    h.textContent = '';
+    var k = 0;
+    parts.forEach(function (p) {
+      if (p.nodeType === 3) { h.appendChild(p); return; }
+      var w = document.createElement('span'), wi = document.createElement('span');
+      w.className = 'w'; wi.className = 'wi'; wi.style.setProperty('--k', k++);
+      if (typeof p === 'string') wi.textContent = p; else wi.appendChild(p);
+      w.appendChild(wi); h.appendChild(w);
+    });
+  });
+  if (!RM && 'IntersectionObserver' in window) {
+    var hio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.remove('pend'); hio.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    $$('h2').forEach(function (h) { if (h.getBoundingClientRect().top > innerHeight) { h.classList.add('pend'); hio.observe(h); } });
+  }
+
   /* ---------- reveal ---------- */
   if (!RM && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) {
@@ -1110,15 +1216,27 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   }
 
   /* ---------- scroll: progress, nav, top button ---------- */
-  var prog = $('#progress'), topBtn = $('#topBtn'), ring = $('#topRing');
-  function onScroll() {
+  var prog = $('#progress'), topBtn = $('#topBtn'), ring = $('#topRing'), railMark = $('#railMark');
+  var heroTitle = $('#heroTitle'), fcs = $$('.hero-visual .fc'), speeds = [.35, .6, .18, .48], ticking = false;
+  fcs.forEach(function (c, i) { c.dataset.speed = speeds[i] || .3; });
+  function frame() {
+    ticking = false;
     var max = document.documentElement.scrollHeight - innerHeight;
     var p = max > 0 ? scrollY / max : 0;
     prog.style.transform = 'scaleX(' + p + ')';
     ring.style.strokeDashoffset = (150.8 * (1 - p)).toFixed(1);
     topBtn.classList.toggle('show', scrollY > innerHeight * .8);
+    railMark.style.top = (p * 100).toFixed(2) + '%';
+    railMark.textContent = Math.round(p * 100) + '%';
+    if (!RM && scrollY < innerHeight * 1.6) {
+      var y = scrollY;
+      heroTitle.style.transform = 'translate3d(0,' + (y * .22).toFixed(1) + 'px,0) scale(' + (1 - Math.min(y, 900) * .00012).toFixed(4) + ')';
+      heroTitle.style.opacity = Math.max(.12, 1 - y / 850).toFixed(3);
+      fcs.forEach(function (c) { c.style.setProperty('--sy', (-y * c.dataset.speed).toFixed(1) + 'px'); });
+    }
   }
-  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  addEventListener('scroll', onScroll, { passive: true }); frame();
   topBtn.addEventListener('click', function () { scrollTo({ top: 0, behavior: RM ? 'auto' : 'smooth' }); });
 
   var navInd = $('#navInd'), navLinks = $$('#navLinks a');
@@ -1127,11 +1245,23 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
     navLinks.forEach(function (l) { l.classList.toggle('on', l === a); });
     navInd.style.opacity = 1; navInd.style.width = a.offsetWidth + 'px'; navInd.style.transform = 'translateX(' + a.offsetLeft + 'px)';
   }
-  var current = null;
+  var current = null, sideLabel = $('#sideLabel'), idxLinks = $$('#secIndex a'), labelNow = 'UNU';
+  var labelFor = { work: 'Work', hire: 'Hire', play: 'Play', stack: 'Stack', now: 'Now', contact: 'Contact' };
+  function setSide(text) {
+    if (text === labelNow) return; labelNow = text;
+    if (RM) { sideLabel.textContent = text; return; }
+    sideLabel.classList.add('out');
+    setTimeout(function () {
+      sideLabel.textContent = text; sideLabel.classList.remove('out'); sideLabel.classList.add('pre');
+      void sideLabel.offsetWidth; sideLabel.classList.remove('pre');
+    }, 300);
+  }
   var secIO = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) current = e.target.id; });
     if (scrollY < innerHeight * .5) current = null;
     moveInd(current ? $('#navLinks a[data-sec="' + current + '"]') : null);
+    idxLinks.forEach(function (a) { a.classList.toggle('on', a.getAttribute('data-sec') === current); });
+    setSide(current ? labelFor[current] : 'UNU');
   }, { rootMargin: '-45% 0px -50% 0px' });
   ['work', 'hire', 'play', 'stack', 'now', 'contact'].forEach(function (id) { secIO.observe(document.getElementById(id)); });
 
