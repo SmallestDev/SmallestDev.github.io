@@ -375,6 +375,26 @@ h2.pend .wi { transform: translateY(115%) rotate(4deg); }
 .mlbl { display: flex; gap: 8px; }
 .mlbl span { flex: 1; text-align: center; font-family: var(--mono); font-size: 8px; color: var(--fg3); }
 
+/* visual: wifisnap */
+.snap { position: absolute; inset: 0 0 34px; display: flex; align-items: center; justify-content: center; gap: clamp(22px, 6%, 56px); }
+.vf { position: relative; padding: 16px; }
+.vf .c { position: absolute; width: 20px; height: 20px; border: 2px solid var(--fg); }
+.vf .c1 { top: 0; left: 0; border-right: 0; border-bottom: 0; border-top-left-radius: 9px; }
+.vf .c2 { top: 0; right: 0; border-left: 0; border-bottom: 0; border-top-right-radius: 9px; }
+.vf .c3 { bottom: 0; right: 0; border-left: 0; border-top: 0; border-bottom-right-radius: 9px; }
+.vf .c4 { bottom: 0; left: 0; border-right: 0; border-top: 0; border-bottom-left-radius: 9px; }
+.note { position: relative; width: 150px; padding: 14px 16px 16px; border-radius: 12px; background: var(--glass-strong); border: 1px solid var(--stroke); transform: rotate(-3deg); display: flex; flex-direction: column; gap: 6px; overflow: hidden; }
+.note .nl { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg3); }
+.note b { align-self: flex-start; font-family: var(--mono); font-weight: 500; font-size: 13px; padding: 2px 5px; margin-left: -5px; border-radius: 6px; outline: 1.5px solid transparent; animation: ocr 6s ease-in-out infinite; }
+.note b + b { animation-delay: .2s; }
+@keyframes ocr { 0%, 40% { outline-color: transparent; } 46%, 90% { outline-color: var(--fg); } 100% { outline-color: transparent; } }
+.note .sweep { position: absolute; left: 8px; right: 8px; height: 2px; border-radius: 2px; background: var(--fg); opacity: 0; animation: sweep 6s ease-in-out infinite; }
+@keyframes sweep { 0% { top: 8%; opacity: 0; } 4%, 34% { opacity: .7; } 38%, 100% { top: 90%; opacity: 0; } }
+.arcs { position: relative; width: 90px; height: 66px; }
+.arcs i { position: absolute; left: 50%; border-radius: 50%; border: 5px solid transparent; border-top-color: var(--fg3); width: var(--d); height: var(--d); margin-left: calc(var(--d) / -2); bottom: calc(var(--d) / -2 + 8px); animation: arc 6s ease-in-out infinite; animation-delay: calc(var(--k) * .18s); }
+.arcs .dot { position: absolute; left: 50%; bottom: 4px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--fg); }
+@keyframes arc { 0%, 50% { border-top-color: var(--fg3); } 56%, 92% { border-top-color: var(--fg); } 100% { border-top-color: var(--fg3); } }
+
 /* visual: korwar */
 .scene { position: absolute; inset: 0; display: grid; place-items: center; perspective: 700px; }
 .cube { width: 90px; height: 90px; position: relative; transform-style: preserve-3d; animation: cube 14s linear infinite; }
@@ -661,7 +681,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   </div>
 
   <div class="stats">
-    <div class="stat glass reveal"><span class="num" data-count="7">0</span><span class="lbl">Projects</span><span class="sub">games · tools · apps</span></div>
+    <div class="stat glass reveal"><span class="num" data-count="8">0</span><span class="lbl">Projects</span><span class="sub">games · tools · apps</span></div>
     <div class="stat glass reveal"><span class="num" data-count="5">0</span><span class="lbl">Languages</span><span class="sub">Python · Java · Kotlin · C# · C++</span></div>
     <div class="stat glass reveal"><span class="num" data-count="2">0</span><span class="lbl">Game engines</span><span class="sub">Unity · Unreal</span></div>
     <div class="stat glass reveal"><span class="num" data-count="10" data-prefix="v0.">0</span><span class="lbl">Latest game build</span><span class="sub">Five Pieces Stones</span></div>
@@ -672,14 +692,14 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   <div class="sec-head reveal">
     <span class="eyebrow glass">01 / Selected work</span>
     <h2>Things I've <em>made</em></h2>
-    <p>A board game with a twist, a voice assistant, AI wingmen, a karaoke coach, a music app and a phone remote for my PC. Click any card for the details.</p>
+    <p>A board game with a twist, a voice assistant, AI wingmen, a karaoke coach, a music app, a phone remote for my PC and an app that joins café Wi-Fi from the note on the wall. Click any card for the details.</p>
   </div>
   <div class="filters glass reveal" id="filters" role="group" aria-label="Filter projects">
     <span class="f-ind" id="fInd"></span>
-    <button type="button" class="on" data-f="all">All<sup>7</sup></button>
+    <button type="button" class="on" data-f="all">All<sup>8</sup></button>
     <button type="button" data-f="games">Games<sup>2</sup></button>
     <button type="button" data-f="tools">Tools<sup>3</sup></button>
-    <button type="button" data-f="apps">Apps<sup>2</sup></button>
+    <button type="button" data-f="apps">Apps<sup>3</sup></button>
   </div>
 
   <div class="grid" id="grid">
@@ -787,6 +807,25 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
         <div class="card-top"><span class="chip">Game</span><span class="chip ghost">Unreal</span><span class="ver">In development</span></div>
         <h3>Korwar</h3>
         <p>An Unreal Engine game in progress. More once the first playable is ready.</p>
+        <div class="card-foot"><span>Details</span><span class="arrow-btn">→</span></div>
+      </div>
+      <span class="spot"></span>
+    </article>
+
+    <article class="card glass wide reveal" data-cat="apps" data-id="wifisnap" tabindex="0" role="button" aria-label="Open WifiSnap details">
+      <div class="card-vis">
+        <div class="snap">
+          <div class="vf"><span class="c c1"></span><span class="c c2"></span><span class="c c3"></span><span class="c c4"></span>
+            <div class="note"><span class="nl">Free Wi-Fi</span><b>CAFE_ONION</b><b>onion1234</b><i class="sweep"></i></div>
+          </div>
+          <div class="arcs"><i style="--d:84px;--k:2"></i><i style="--d:56px;--k:1"></i><i style="--d:28px;--k:0"></i><span class="dot"></span></div>
+        </div>
+        <div class="loading"><span class="ptt" style="width:8px;height:8px;border-radius:50%;background:var(--fg)"></span><span>Connected · CAFE_ONION</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-top"><span class="chip">App</span><span class="chip ghost">Android</span><span class="ver">Oct 2026</span></div>
+        <h3>WifiSnap <span class="ko">와이파이 찰칵</span></h3>
+        <p>Point your phone at the Wi-Fi note in a café and it joins that network. No QR code needed, just the name and the password.</p>
         <div class="card-foot"><span>Details</span><span class="arrow-btn">→</span></div>
       </div>
       <span class="spot"></span>
@@ -922,6 +961,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
     <p>What changed lately across the projects.</p>
   </div>
   <div class="timeline">
+    <div class="tl glass reveal"><time datetime="2026-10-22">2026.10.22</time><h3>WifiSnap 1.0.0</h3><p>First release of an Android app that joins café Wi-Fi from a photo of the note.</p></div>
     <div class="tl glass reveal"><time datetime="2026-10-17">2026.10.17</time><h3>Remote PC starts</h3><p>First commit for a phone app that locks, wakes and controls the PC over Wi-Fi.</p></div>
     <div class="tl glass reveal"><time datetime="2026-10-17">2026.10.17</time><h3>Mononote keeps shipping</h3><p>Latest round of changes to the music app.</p></div>
     <div class="tl glass reveal"><time datetime="2026-10-15">2026.10.15</time><h3>Mononote gets direct streaming</h3><p>PC and Android can now stream audio directly in Firebase mode.</p></div>
@@ -1154,7 +1194,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   /* ---------- hero terminal ---------- */
   var script = [
     ['$ ', 'whoami'], ['', 'smallestDev @ UNU Studios'],
-    ['$ ', 'ls projects/'], ['', 'jarvis  remote-pc  mononote  vocal-coach\ndcs-ai-friend  five-pieces-stones  korwar'],
+    ['$ ', 'ls projects/'], ['', 'jarvis  remote-pc  mononote  vocal-coach\ndcs-ai-friend  five-pieces-stones\nkorwar  wifisnap'],
     ['$ ', 'git push'], ['', '✓ shipped']
   ];
   var term = $('#term');
@@ -1175,7 +1215,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   if (RM) { term.textContent = 'smallestDev @ UNU Studios\n✓ shipped'; } else runTerm();
 
   /* ---------- marquee ---------- */
-  var tools = ['Python', 'Java', 'Kotlin', 'C#', 'C++', 'Unity', 'Unreal Engine', 'Blender', 'Firebase', 'Android', 'Jetpack Compose', 'FastAPI', 'OpenAI API', 'Claude API', 'faster-whisper', 'Edge TTS', 'DCS World', 'Git', 'Windows', 'Obsidian'];
+  var tools = ['Python', 'Java', 'Kotlin', 'C#', 'C++', 'Unity', 'Unreal Engine', 'Blender', 'Firebase', 'Android', 'Jetpack Compose', 'CameraX', 'ML Kit', 'FastAPI', 'OpenAI API', 'Claude API', 'faster-whisper', 'Edge TTS', 'DCS World', 'Git', 'Windows', 'Obsidian'];
   function fill(el, list) { var html = list.concat(list).map(function (t) { return '<span>' + t + '</span>'; }).join(''); el.innerHTML = html; }
   fill($('#track1'), tools); fill($('#track2'), tools.slice().reverse());
 
@@ -1390,9 +1430,12 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
       stack: ['Python', 'faster-whisper', 'Edge TTS', 'OpenAI / Claude API', 'WebSocket'] },
     remote: { title: 'Remote PC', tags: ['App', 'Android + Windows', 'Oct 2026'], lead: 'A remote control for your PC, on your phone.',
       pts: ['Lock, sleep, restart, shut down or sign out, even while the PC is on the lock screen.', 'Launch any Start menu app, Store apps included, and close or force-quit running ones.', 'Check CPU, memory, disk and battery, and control volume and playback.', 'Turn the PC on from the phone with Wake-on-LAN.', 'Pairs with a 6-digit code and never stores your password. Ports open only on private networks.'],
-      stack: ['Kotlin', 'Jetpack Compose', 'Python', 'FastAPI'] }
+      stack: ['Kotlin', 'Jetpack Compose', 'Python', 'FastAPI'] },
+    wifisnap: { title: 'WifiSnap', tags: ['App', 'Android', 'Oct 2026'], lead: 'Café Wi-Fi, straight from the note on the wall.',
+      pts: ['Point the camera at the paper with the network name and password, and it connects. No QR code needed.', 'Reads Korean and English on the phone with ML Kit, from two bare lines to labeled notes like ID / PW or 비밀번호.', 'Checks what it read against the networks around you, so mix-ups like O and 0 still land on the right name.', 'On Android 11 and later it is one tap on the system “Save this network?” prompt. Misread letters can be fixed first.', 'Updates itself from a public release feed after checking the file’s hash and signature.'],
+      stack: ['Kotlin', 'Jetpack Compose', 'CameraX', 'ML Kit'] }
   };
-  var order = ['dcs', 'jarvis', 'fps', 'vocal', 'mononote', 'remote', 'korwar'];
+  var order = ['dcs', 'jarvis', 'fps', 'vocal', 'mononote', 'remote', 'korwar', 'wifisnap'];
   var mBack = $('#modalBack'), modal = $('#modal'), mId = null, lastFocus = null;
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
   function renderModal(id) {
