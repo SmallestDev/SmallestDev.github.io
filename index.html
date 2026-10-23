@@ -395,6 +395,23 @@ h2.pend .wi { transform: translateY(115%) rotate(4deg); }
 .arcs .dot { position: absolute; left: 50%; bottom: 4px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--fg); }
 @keyframes arc { 0%, 50% { border-top-color: var(--fg3); } 56%, 92% { border-top-color: var(--fg); } 100% { border-top-color: var(--fg3); } }
 
+/* visual: fretnote */
+.fret { position: absolute; inset: 0 0 34px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; }
+.fret-now { display: flex; align-items: center; gap: 22px; }
+.fret-name { font-family: var(--display); font-weight: 900; font-size: 64px; line-height: .9; letter-spacing: -.05em; }
+.fbox { position: relative; width: 78px; height: 92px; border-top: 4px solid var(--fg); background: repeating-linear-gradient(to bottom, transparent 0 22px, var(--fg3) 22px 23px), repeating-linear-gradient(to right, var(--fg3) 0 1.5px, transparent 1.5px 15.3px); }
+.fbox i { position: absolute; width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; border-radius: 50%; background: var(--fg); animation: finger 6s ease-in-out infinite; }
+@keyframes finger { 0%, 46% { transform: scale(1); opacity: 1; } 50% { transform: scale(.4); opacity: .3; } 54%, 100% { transform: scale(1); opacity: 1; } }
+.fret-lane { position: relative; width: min(86%, 380px); height: 38px; border-radius: 12px; background: var(--glass-strong); border: 1px solid var(--stroke); overflow: hidden; }
+.fret-lane .strip { position: absolute; top: 5px; left: 0; display: flex; gap: 6px; animation: lane 12s linear infinite; }
+.fret-lane .strip span { width: 72px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-weight: 900; font-size: 14px; background: var(--line); flex: none; }
+.fret-lane .strip span.on { background: var(--fg); color: var(--ink-fg); }
+.fret-lane .head { position: absolute; top: 0; bottom: 0; left: 28%; width: 2px; background: var(--fg); }
+@keyframes lane { from { transform: translateX(0); } to { transform: translateX(-312px); } }
+.fret-dots { display: flex; gap: 6px; }
+.fret-dots i { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--fg3); animation: beat 2s steps(1) infinite; animation-delay: calc(var(--k) * .5s); }
+@keyframes beat { 0%, 24% { background: var(--fg); border-color: var(--fg); } 25%, 100% { background: transparent; border-color: var(--fg3); } }
+
 /* visual: korwar */
 .scene { position: absolute; inset: 0; display: grid; place-items: center; perspective: 700px; }
 .cube { width: 90px; height: 90px; position: relative; transform-style: preserve-3d; animation: cube 14s linear infinite; }
@@ -681,8 +698,8 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   </div>
 
   <div class="stats">
-    <div class="stat glass reveal"><span class="num" data-count="8">0</span><span class="lbl">Projects</span><span class="sub">games · tools · apps</span></div>
-    <div class="stat glass reveal"><span class="num" data-count="5">0</span><span class="lbl">Languages</span><span class="sub">Python · Java · Kotlin · C# · C++</span></div>
+    <div class="stat glass reveal"><span class="num" data-count="9">0</span><span class="lbl">Projects</span><span class="sub">games · tools · apps</span></div>
+    <div class="stat glass reveal"><span class="num" data-count="7">0</span><span class="lbl">Languages</span><span class="sub">Python · Java · Kotlin · C# · C++ · Rust · TypeScript</span></div>
     <div class="stat glass reveal"><span class="num" data-count="2">0</span><span class="lbl">Game engines</span><span class="sub">Unity · Unreal</span></div>
     <div class="stat glass reveal"><span class="num" data-count="10" data-prefix="v0.">0</span><span class="lbl">Latest game build</span><span class="sub">Five Pieces Stones</span></div>
   </div>
@@ -692,14 +709,14 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   <div class="sec-head reveal">
     <span class="eyebrow glass">01 / Selected work</span>
     <h2>Things I've <em>made</em></h2>
-    <p>A board game with a twist, a voice assistant, AI wingmen, a karaoke coach, a music app, a phone remote for my PC and an app that joins café Wi-Fi from the note on the wall. Click any card for the details.</p>
+    <p>A board game with a twist, a voice assistant, AI wingmen, a karaoke coach, a music app, a phone remote for my PC, an app that joins café Wi-Fi from the note on the wall and a guitar app that turns any song into chords and fingerings. Click any card for the details.</p>
   </div>
   <div class="filters glass reveal" id="filters" role="group" aria-label="Filter projects">
     <span class="f-ind" id="fInd"></span>
-    <button type="button" class="on" data-f="all">All<sup>8</sup></button>
+    <button type="button" class="on" data-f="all">All<sup>9</sup></button>
     <button type="button" data-f="games">Games<sup>2</sup></button>
     <button type="button" data-f="tools">Tools<sup>3</sup></button>
-    <button type="button" data-f="apps">Apps<sup>3</sup></button>
+    <button type="button" data-f="apps">Apps<sup>4</sup></button>
   </div>
 
   <div class="grid" id="grid">
@@ -826,6 +843,26 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
         <div class="card-top"><span class="chip">App</span><span class="chip ghost">Android</span><span class="ver">Oct 2026</span></div>
         <h3>WifiSnap</h3>
         <p>Point your phone at the Wi-Fi note in a café and it joins that network. No QR code needed, just the name and the password.</p>
+        <div class="card-foot"><span>Details</span><span class="arrow-btn">→</span></div>
+      </div>
+      <span class="spot"></span>
+    </article>
+
+    <article class="card glass wide reveal" data-cat="apps" data-id="fretnote" tabindex="0" role="button" aria-label="Open Fretnote details">
+      <div class="card-vis">
+        <div class="fret">
+          <div class="fret-now">
+            <span class="fret-name">Am</span>
+            <div class="fbox"><i style="left:39%;top:37.5%"></i><i style="left:59%;top:37.5%;animation-delay:.1s"></i><i style="left:78.5%;top:12.5%;animation-delay:.2s"></i></div>
+          </div>
+          <div class="fret-lane"><div class="strip"><span>C</span><span>G</span><span class="on">Am</span><span>F</span><span>C</span><span>G</span><span>Am</span><span>F</span><span>C</span><span>G</span></div><span class="head"></span></div>
+        </div>
+        <div class="loading"><span class="fret-dots"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i></span><span>Next · F in 4 beats</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-top"><span class="chip">App</span><span class="chip ghost">Windows</span><span class="ver">Oct 2026</span></div>
+        <h3>Fretnote <span class="ko">프렛노트</span></h3>
+        <p>Drop in a song or a photo of a chord chart. It finds the chords and shows what to play next, with the fingering, in time with the music.</p>
         <div class="card-foot"><span>Details</span><span class="arrow-btn">→</span></div>
       </div>
       <span class="spot"></span>
@@ -961,6 +998,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
     <p>What changed lately across the projects.</p>
   </div>
   <div class="timeline">
+    <div class="tl glass reveal"><time datetime="2026-10-24">2026.10.24</time><h3>Fretnote 0.1.0</h3><p>First release of a Windows app that turns songs and chord chart photos into synced chords and fingerings.</p></div>
     <div class="tl glass reveal"><time datetime="2026-10-22">2026.10.22</time><h3>WifiSnap 1.0.0</h3><p>First release of an Android app that joins café Wi-Fi from a photo of the note.</p></div>
     <div class="tl glass reveal"><time datetime="2026-10-17">2026.10.17</time><h3>Remote PC starts</h3><p>First commit for a phone app that locks, wakes and controls the PC over Wi-Fi.</p></div>
     <div class="tl glass reveal"><time datetime="2026-10-17">2026.10.17</time><h3>Mononote keeps shipping</h3><p>Latest round of changes to the music app.</p></div>
@@ -1194,7 +1232,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   /* ---------- hero terminal ---------- */
   var script = [
     ['$ ', 'whoami'], ['', 'smallestDev @ UNU Studios'],
-    ['$ ', 'ls projects/'], ['', 'jarvis  remote-pc  mononote  vocal-coach\ndcs-ai-friend  five-pieces-stones\nkorwar  wifisnap'],
+    ['$ ', 'ls projects/'], ['', 'jarvis  remote-pc  mononote  vocal-coach\ndcs-ai-friend  five-pieces-stones\nkorwar  wifisnap  fretnote'],
     ['$ ', 'git push'], ['', '✓ shipped']
   ];
   var term = $('#term');
@@ -1215,7 +1253,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
   if (RM) { term.textContent = 'smallestDev @ UNU Studios\n✓ shipped'; } else runTerm();
 
   /* ---------- marquee ---------- */
-  var tools = ['Python', 'Java', 'Kotlin', 'C#', 'C++', 'Unity', 'Unreal Engine', 'Blender', 'Firebase', 'Android', 'Jetpack Compose', 'CameraX', 'ML Kit', 'FastAPI', 'OpenAI API', 'Claude API', 'faster-whisper', 'Edge TTS', 'DCS World', 'Git', 'Windows', 'Obsidian'];
+  var tools = ['Python', 'Java', 'Kotlin', 'C#', 'C++', 'Unity', 'Unreal Engine', 'Blender', 'Firebase', 'Android', 'Jetpack Compose', 'CameraX', 'ML Kit', 'Rust', 'TypeScript', 'React', 'Tauri', 'FastAPI', 'OpenAI API', 'Claude API', 'faster-whisper', 'Edge TTS', 'DCS World', 'Git', 'Windows', 'Obsidian'];
   function fill(el, list) { var html = list.concat(list).map(function (t) { return '<span>' + t + '</span>'; }).join(''); el.innerHTML = html; }
   fill($('#track1'), tools); fill($('#track2'), tools.slice().reverse());
 
@@ -1433,9 +1471,12 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
       stack: ['Kotlin', 'Jetpack Compose', 'Python', 'FastAPI'] },
     wifisnap: { title: 'WifiSnap', tags: ['App', 'Android', 'Oct 2026'], lead: 'Café Wi-Fi, straight from the note on the wall.',
       pts: ['Point the camera at the paper with the network name and password, and it connects. No QR code needed.', 'Reads Korean and English on the phone with ML Kit, from two bare lines to labeled notes like ID / PW or 비밀번호.', 'Checks what it read against the networks around you, so mix-ups like O and 0 still land on the right name.', 'On Android 11 and later it is one tap on the system “Save this network?” prompt. Misread letters can be fixed first.', 'Updates itself from a public release feed after checking the file’s hash and signature.'],
-      stack: ['Kotlin', 'Jetpack Compose', 'CameraX', 'ML Kit'] }
+      stack: ['Kotlin', 'Jetpack Compose', 'CameraX', 'ML Kit'] },
+    fretnote: { title: 'Fretnote', tags: ['App', 'Windows', 'Oct 2026'], lead: 'Play along without stopping to look up a chord.',
+      pts: ['Drop in an MP3, WAV, FLAC or M4A and it finds the chords, beats, bars, time signature and key, all offline on the PC.', 'While the song plays, the current chord is shown large with its fingering, the next ones wait beside it, and dots count the beats to the change.', 'Loop a bar, slow down to half speed without changing pitch, add a count-in and a metronome, or go full screen to read it from across the room.', 'Suggests a capo position that turns hard keys into open chords, and keeps the original, fretted and sounding chords apart.', 'Wrong chord? Click it to pick another candidate, drag its edges or undo. Chord charts from photos and PDFs work too.'],
+      stack: ['Rust', 'TypeScript', 'React', 'Tauri'], cta: { label: 'Download for Windows', href: 'https://github.com/SmallestDev/Fretnote-Releases/releases/latest' } }
   };
-  var order = ['dcs', 'jarvis', 'fps', 'vocal', 'mononote', 'remote', 'korwar', 'wifisnap'];
+  var order = ['dcs', 'jarvis', 'fps', 'vocal', 'mononote', 'remote', 'korwar', 'wifisnap', 'fretnote'];
   var mBack = $('#modalBack'), modal = $('#modal'), mId = null, lastFocus = null;
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
   function renderModal(id) {
