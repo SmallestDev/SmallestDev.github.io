@@ -862,7 +862,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
       <div class="card-body">
         <div class="card-top"><span class="chip">App</span><span class="chip ghost">Windows</span><span class="ver">Oct 2026</span></div>
         <h3>Fretnote <span class="ko">프렛노트</span></h3>
-        <p>Drop in a song, a video link or a photo of a chord chart. It shows what to play next, with the fingering, the strumming or a fingerstyle tab, in time with the music.</p>
+        <p>Drop in a song, a video link or a photo of a chord chart. It finds a chord sheet for the song and shows what to play next, with the fingering, the strumming or a fingerstyle tab, in time with the music.</p>
         <div class="card-foot"><span>Details</span><span class="arrow-btn">→</span></div>
       </div>
       <span class="spot"></span>
@@ -998,6 +998,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
     <p>What changed lately across the projects.</p>
   </div>
   <div class="timeline">
+    <div class="tl glass reveal"><time datetime="2026-10-24">2026.10.24</time><h3>Fretnote 0.4.0</h3><p>Finds a chord sheet for the song online or reads the chords off a guitar video, lines it up with the music and sets the capo.</p></div>
     <div class="tl glass reveal"><time datetime="2026-10-24">2026.10.24</time><h3>Fretnote 0.3.0</h3><p>Easy, Normal and Original versions of each song, strumming patterns lit in time and fingerstyle tabs.</p></div>
     <div class="tl glass reveal"><time datetime="2026-10-24">2026.10.24</time><h3>Fretnote 0.2.0</h3><p>Songs can now come straight from a video link.</p></div>
     <div class="tl glass reveal"><time datetime="2026-10-24">2026.10.24</time><h3>Fretnote 0.1.0</h3><p>First release of a Windows app that turns songs and chord chart photos into synced chords and fingerings.</p></div>
@@ -1475,7 +1476,7 @@ footer { padding-block: 80px calc(env(safe-area-inset-bottom, 0px) + 40px); disp
       pts: ['Point the camera at the paper with the network name and password, and it connects. No QR code needed.', 'Reads Korean and English on the phone with ML Kit, from two bare lines to labeled notes like ID / PW or 비밀번호.', 'Checks what it read against the networks around you, so mix-ups like O and 0 still land on the right name.', 'On Android 11 and later it is one tap on the system “Save this network?” prompt. Misread letters can be fixed first.', 'Updates itself from a public release feed after checking the file’s hash and signature.'],
       stack: ['Kotlin', 'Jetpack Compose', 'CameraX', 'ML Kit'] },
     fretnote: { title: 'Fretnote', tags: ['App', 'Windows', 'Oct 2026'], lead: 'Play along without stopping to look up a chord.',
-      pts: ['Drop in an MP3, WAV, FLAC or M4A, or paste a video link, and it finds the chords, beats, bars, time signature and key on the PC.', 'While the song plays, the current chord is shown large with its fingering, the next ones wait beside it, and dots count the beats to the change.', 'Pick an Easy, Normal or Original version. Easy keeps plain triads and adds a capo for open chords when that helps.', 'Switch the view to strumming, with each down and up stroke lit in time, or to a fingerstyle tab built from the chord you are holding. One view at a time, so the screen stays calm.', 'Loop a bar, slow down without changing pitch, add a count-in and a metronome, or go full screen to read it from across the room.', 'Wrong chord? Click it to pick another candidate, drag its edges or undo. Chord charts from photos and PDFs work too.'],
+      pts: ['Drop in an MP3, WAV, FLAC or M4A, or paste a video link, and it finds the chords, beats, bars, time signature and key on the PC.', 'It looks up a chord sheet for the song online, or reads the chord names off a guitar video, then lines the chords up with the music and sets the capo so the shapes match the recording. You can also paste a sheet yourself.', 'While the song plays, the current chord is shown large with its fingering, the next ones wait beside it, and dots count the beats to the change.', 'Pick an Easy, Normal or Original version. Easy sticks to the main chords of the song and adds a capo for open chords when that helps.', 'Switch the view to strumming, with each down and up stroke lit in time, or to a fingerstyle tab built from the chord you are holding. One view at a time, so the screen stays calm.', 'Loop a bar, slow down without changing pitch, add a count-in and a metronome, or go full screen to read it from across the room.', 'Wrong chord? Click it to pick another candidate, drag its edges or undo. Chord charts from photos and PDFs work too.'],
       stack: ['Rust', 'TypeScript', 'React', 'Tauri'], cta: { label: 'Download for Windows', href: 'https://github.com/SmallestDev/Fretnote-Releases/releases/latest' } }
   };
   var order = ['dcs', 'jarvis', 'fps', 'vocal', 'mononote', 'remote', 'korwar', 'wifisnap', 'fretnote'];
